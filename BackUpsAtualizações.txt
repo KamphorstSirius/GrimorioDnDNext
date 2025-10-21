@@ -1,0 +1,17 @@
+   INDEX.TSX HERO SECTION
+ {showInstallButton && (
+                <Button 
+                  variant="secondary"
+                  className="bg-gold/20 border-gold text-gold hover:bg-gold/30 px-8 py-3 text-lg"
+                  onClick={handleInstallPWA}
+                >
+                  <Download className="mr-2 h-5 w-5" />
+                  Use como um app offline!
+                </Button>
+              )}
+
+INDEX.TSX CONTROLL
+              <User className="mr-1 sm:mr-2 h-4 w-4" />
+              <span className="hidden sm:inline">{showFavorites ? 'Todas As Magias' : 'Meu Grimório'}</span>
+              <span className="sm:hidden">{showFavorites ? 'Todas as Magias' : 'Meu Grimório'}</span>
+            </Button>
