@@ -1,0 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Medieval Grimoire Design System */
+
+@layer base {
+  :root {
+    /* Medieval Color Palette */
+    --background: 32 25% 8%;
+    --background-secondary: 30 20% 12%;
+    --foreground: 45 25% 85%;
+
+    --parchment: 45 35% 92%;
+    --parchment-dark: 42 28% 85%;
+    --parchment-aged: 40 25% 78%;
+
+    --gold: 45 95% 60%;
+    --gold-muted: 42 45% 45%;
+    --gold-dark: 38 85% 35%;
+
+    --copper: 25 75% 55%;
+    --copper-dark: 20 65% 40%;
+
+    --crimson: 0 75% 45%;
+    --crimson-dark: 0 65% 35%;
+
+    --emerald: 140 65% 35%;
+    --emerald-dark: 135 60% 25%;
+
+    --primary: var(--gold);
+    --primary-foreground: 32 25% 8%;
+
+    --secondary: var(--copper);
+    --secondary-foreground: var(--parchment);
+
+    --card: 32 25% 10%;
+    --card-foreground: var(--foreground);
+
+    --accent: var(--gold-muted);
+    --accent-foreground: var(--background);
+
+    --muted: 30 15% 20%;
+    --muted-foreground: 45 15% 60%;
+
+    --border: var(--gold-dark);
+    --input: var(--background-secondary);
+    --ring: var(--gold);
+
+    /* Magical Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-dark)));
+    --gradient-parchment: linear-gradient(180deg, hsl(var(--parchment)), hsl(var(--parchment-aged)));
+    --gradient-mystical: linear-gradient(45deg, hsl(var(--emerald)), hsl(var(--gold-muted)), hsl(var(--crimson)));
+
+    /* Shadows & Effects */
+    --shadow-magical: 0 0 20px hsl(var(--gold) / 0.3);
+    --shadow-deep: 0 10px 30px hsl(0 0% 0% / 0.6);
+    --glow-spell: 0 0 15px hsl(var(--gold) / 0.5);
+
+    --radius: 8px;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-serif;
+    background: 
+      radial-gradient(circle at 20% 20%, hsl(var(--gold) / 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(var(--emerald) / 0.05) 0%, transparent 50%),
+      linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--background-secondary)) 100%);
+  }
+}
+
+@layer components {
+  /* Typography */
+  .grimoire-title {
+    @apply font-serif text-primary;
+    font-family: 'Cinzel Decorative', serif;
+    text-shadow: 0 0 10px hsl(var(--gold) / 0.5);
+  }
+
+  .spell-text {
+    @apply font-serif leading-relaxed;
+    font-family: 'Crimson Text', serif;
+  }
+
+  .medieval-heading {
+    @apply font-bold text-primary;
+    font-family: 'Cinzel', serif;
+  }
+
+  /* Magical Cards */
+  .spell-card {
+    @apply relative bg-card border border-border rounded-lg overflow-hidden;
+    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--background-secondary)));
+    box-shadow: var(--shadow-deep), inset 0 1px 0 hsl(var(--gold) / 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .spell-card:hover:not(:has([data-state="open"])) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-deep), var(--shadow-magical);
+  }
+
+  .spell-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, hsl(var(--gold) / 0.1), transparent);
+  }
+
+  .spell-card:hover:not(:has([data-state="open"]))::before {
+    @apply opacity-100;
+  }
+
+  /* Disable hover effects when modal is open */
+  .spell-card:has([data-state="open"]) .group-hover\:text-neon-yellow {
+    color: hsl(var(--foreground)) !important;
+    text-shadow: none !important;
+  }
+
+  /* Parchment Effect */
+  .parchment {
+    @apply relative;
+    background: var(--gradient-parchment);
+    color: hsl(var(--background));
+  }
+
+  .parchment::before {
+    content: '';
+    @apply absolute inset-0 opacity-30;
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(var(--gold-dark) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, hsl(var(--copper-dark) / 0.1) 0%, transparent 50%);
+  }
+
+  /* Buttons */
+  .btn-grimoire {
+    @apply relative overflow-hidden border border-border transition-all duration-300;
+    background: var(--gradient-gold);
+    color: hsl(var(--primary-foreground));
+    text-shadow: 0 1px 2px hsl(0 0% 0% / 0.8);
+  }
+
+  .btn-grimoire:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--glow-spell);
+  }
+
+  .btn-grimoire::before {
+    content: '';
+    @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-300;
+  }
+
+  .btn-grimoire:hover::before {
+    @apply opacity-10;
+  }
+
+  /* Search Bar */
+  .search-mystical {
+    @apply relative bg-input border border-border rounded-lg;
+    box-shadow: inset 0 2px 4px hsl(0 0% 0% / 0.2);
+  }
+
+  .search-mystical:focus-within {
+    @apply ring-2 ring-ring;
+    box-shadow: inset 0 2px 4px hsl(0 0% 0% / 0.2), var(--glow-spell);
+  }
+
+  /* Animations */
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .spell-level-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium;
+    background: hsl(var(--copper-dark));
+    color: hsl(var(--gold));
+    text-shadow: 0 0 8px hsl(var(--gold) / 0.8);
+    box-shadow: 0 2px 4px hsl(0 0% 0% / 0.3);
+  }
+
+  .grimoire-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border-0;
+    background: hsl(var(--copper-dark)) !important;
+    color: hsl(var(--gold)) !important;
+    text-shadow: 0 0 8px hsl(var(--gold) / 0.8);
+    box-shadow: 0 2px 4px hsl(0 0% 0% / 0.3);
+  }
+
+  .grimoire-input {
+    @apply flex h-10 w-full rounded-md px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--copper-dark));
+    color: hsl(var(--foreground));
+  }
+
+  .grimoire-input:focus {
+    border-color: hsl(var(--gold));
+    box-shadow: 0 0 8px hsl(var(--gold) / 0.3);
+  }
+
+  /* Dialog specific styling - no transform on hover, keep positioning intact */
+  .grimoire-dialog {
+    @apply border-border;
+    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--background-secondary))) !important;
+    box-shadow: var(--shadow-deep), inset 0 1px 0 hsl(var(--gold) / 0.1);
+  }
+
+  .grimoire-dialog::before {
+    content: '';
+    @apply absolute inset-0 opacity-30 pointer-events-none;
+    background: linear-gradient(135deg, hsl(var(--gold) / 0.05), transparent);
+  }
+
+  /* Custom Scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--gold)) hsl(var(--background-secondary));
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--background-secondary));
+    border-radius: 6px;
+    margin: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(var(--gold)), hsl(var(--gold-muted)));
+    border-radius: 6px;
+    border: 2px solid hsl(var(--background-secondary));
+    box-shadow: 
+      0 0 8px hsl(var(--gold) / 0.4),
+      inset 0 1px 0 hsl(var(--gold) / 0.8);
+    transition: all 0.3s ease;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, hsl(var(--gold)), hsl(var(--gold-dark)));
+    box-shadow: 
+      0 0 12px hsl(var(--gold) / 0.7),
+      inset 0 1px 0 hsl(var(--gold));
+    transform: scaleY(1.05);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, hsl(var(--gold-dark)), hsl(var(--copper)));
+    box-shadow: 
+      0 0 6px hsl(var(--gold) / 0.5),
+      inset 0 2px 4px hsl(0 0% 0% / 0.3);
+  }
+
+  /* Neon text effects */
+  .text-neon-yellow {
+    color: #ffcc00;
+    text-shadow: 
+      0 0 5px #ffcc00,
+      0 0 10px #ffcc00,
+      0 0 15px #ffcc00,
+      0 0 20px #ffcc00;
+  }
+
+  .close-button-neon {
+    color: #ffcc00 !important;
+    text-shadow: 
+      0 0 5px #ffcc00,
+      0 0 10px #ffcc00,
+      0 0 15px #ffcc00,
+      0 0 20px #ffcc00;
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+  }
+
+  .close-button-neon:hover {
+    color: #ffffff !important;
+    text-shadow: 
+      0 0 8px #ffcc00,
+      0 0 16px #ffcc00,
+      0 0 24px #ffcc00,
+      0 0 32px #ffcc00;
+    transform: scale(1.3);
+    text-decoration: none !important;
+  }
+
+  .close-button-neon:focus {
+    color: #ffcc00 !important;
+    text-decoration: none !important;
+    outline: none !important;
+  }
+
+  .close-button-neon:active {
+    color: #ffcc00 !important;
+    text-decoration: none !important;
+    outline: none !important;
+    transform: scale(1.2);
+  }
+
+  .close-button-neon:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Force blur after click to prevent persistent visual state */
+  .close-button-neon:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+
+  /* Additional focus state control */
+  .close-button-neon:focus:not(:focus-visible) {
+    color: hsl(var(--foreground)) !important;
+    text-shadow: none !important;
+    transform: none !important;
+    outline: none !important;
+  }
+}
+
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 10px hsl(var(--gold) / 0.8);
+  }
+
+  .bg-magical-glow {
+    background: var(--gradient-mystical);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
